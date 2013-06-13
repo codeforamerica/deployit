@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Deploy for America</title>
+  </head>
+  <body>
+    <h1>Apps:</h1>
+
+    <ul>
+    {% for dep in deployables %}
+    <li>
+    {{ dep.name }}
+    </li>
+
+    {% endfor %}
+    </ul>
+  </body>
+</html>

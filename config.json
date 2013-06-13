@@ -1,0 +1,20 @@
+{
+  "deployables":[
+    {"name":"CFA.org website",
+     "id":"cfa.org",
+     "description":"This deploys the wordpress template for codeforamerica.org",
+     "gitSourceRemote":"",
+     "githubUrl":"",
+     "targets":[
+       {"name":"Stage",
+        "url":"http://stage.codeforamerica.org",
+        "gitDescRemote":""
+       },
+       {"name": "Production",
+        "url":"http://codeforamerica.org",
+        "gitDescRemote":""
+       }
+     ]
+    }
+  ]
+}
