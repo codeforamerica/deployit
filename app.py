@@ -20,7 +20,7 @@ def index():
 
 
 @app.route("/currentCommits")
-def github_commits:
+def github_commits():
 
     # fetch most recent commit for a project on github.
     return ""
@@ -28,7 +28,7 @@ def github_commits:
 
 
 @app.route("/deploy")
-def deploy:
+def deploy():
 
     #Run the deploy, and stream the stdin/stout
 
