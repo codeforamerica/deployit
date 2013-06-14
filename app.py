@@ -4,6 +4,8 @@ from deploy_config import load_config
 
 
 app = Flask(__name__)
+
+# Move to env
 app.debug = True
 
 
@@ -15,10 +17,12 @@ def index():
 
     return render_template('index.html', deployables=config['deployables'])
 
+
+
 @app.route("/currentCommits")
 def github_commits:
 
-    # fetch most recent commit for each proejct to see if there are things to deploy.
+    # fetch most recent commit for a project on github.
     return ""
 
 
@@ -26,7 +30,7 @@ def github_commits:
 @app.route("/deploy")
 def deploy:
 
-    # stream the logs?
+    #Run the deploy, and stream the stdin/stout
 
     return "DONE"
 

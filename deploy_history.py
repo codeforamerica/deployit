@@ -21,7 +21,6 @@ def deployment(deployment=None):
         f.write(json.dumps({"name":"deploy a", "timestamp": 1234}) + "\n")
 
 
-
 def deploy_details(deployment, line):
 
     #log stdin/stderr to tmp dir, for debugging deploys.
