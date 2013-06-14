@@ -1,7 +1,8 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 from deploy_config import load_config
-
+from deploy import run_deploy
 
 app = Flask(__name__)
 
@@ -27,10 +28,18 @@ def github_commits():
 
 
 
-@app.route("/deploy")
+@app.route("/deploy", methods=['POST'])
 def deploy():
 
-    #Run the deploy, and stream the stdin/stout
+    #Run the deploy, and stream the stderr/stout
+
+    deployable = config['deployables'][request.form['deployable']]
+    deployable['key'] = request.form['deployable']
+
+    run_deploy(deployable, request.form['target'])
+
+
+
 
     return "DONE"
 

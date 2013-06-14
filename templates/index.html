@@ -2,17 +2,26 @@
 <html>
   <head>
     <title>Deploy for America</title>
+    <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
     <h1>Apps:</h1>
 
     <ul>
-    {% for dep in deployables %}
+    {% for key, dep in deployables.iteritems() %}
     <li>
-    {{ dep.name }}
+      {{ dep.name }}
+      {% for t in  dep.targets %}
+      <div class="btn deploy" data-deployable="{{ key }}" data-target="{{ t.name }}">{{ t.name }}</div>
+      {% endfor %}
+      <div class="result"></div>
     </li>
 
     {% endfor %}
     </ul>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+    <script src="/static/main.js"></script>
   </body>
 </html>

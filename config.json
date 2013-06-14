@@ -1,20 +1,19 @@
 {
-  "deployables":[
-    {"name":"CFA.org website",
-     "id":"cfa.org",
-     "description":"This deploys the wordpress template for codeforamerica.org",
-     "gitSourceRemote":"",
-     "githubUrl":"",
-     "targets":[
-       {"name":"Stage",
-        "url":"http://stage.codeforamerica.org",
-        "gitDescRemote":""
-       },
-       {"name": "Production",
-        "url":"http://codeforamerica.org",
-        "gitDescRemote":""
-       }
-     ]
-    }
-  ]
+  "deployables":{
+    "cfa.org":{"name":"CFA.org website",
+               "description":"This deploys the wordpress template for codeforamerica.org",
+               "gitSourceRemote":"git@github.com:codeforamerica/dev.git",
+               "githubUrl":"https://github.com/codeforamerica/dev",
+               "targets":[
+                 {"name":"Stage",
+                  "url":"http://stage.codeforamerica.org",
+                  "gitDestRemote":""
+                 },
+                 {"name": "Production",
+                  "url":"http://codeforamerica.org",
+                  "gitDestRemote":""
+                 }
+               ]
+              }
+  }
 }
