@@ -46,9 +46,6 @@ def run_generic_deploy(config):
 
 def run_cmd(cmd, path=None):
 
-    if(path is None):
-        path = os.path.get_cwd()
-
     p = subprocess.Popen(cmd,
                          stdout=subprocess.PIPE,
                          stderr=subprocess.STDOUT,
