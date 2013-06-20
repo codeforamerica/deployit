@@ -5,3 +5,9 @@
   display:inline;
   margin-right:10px;
 }
+.list{
+	background-color:LightGray
+}
+dt{
+	text-decoration:underline;
+}
