@@ -1,13 +1,10 @@
-.btn{ 
-  padding:5px;
-  border:solid 1px #ccc;
-  cursor:pointer;
-  display:inline;
-  margin-right:10px;
-}
 .list{
 	background-color:LightGray
 }
 dt{
 	text-decoration:underline;
+}
+.content{ 
+  width:800px;
+  margin:auto;
 }

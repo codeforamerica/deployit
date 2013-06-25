@@ -6,33 +6,59 @@
     <link rel="stylesheet" href="/static/css/style.css">
   </head>
   <body>
-  <p class="messages">
-    {% for message in get_flashed_messages() %}
-      {{ message }}
-    {% endfor %}
-  </p>
-    {% if 'github_token' in session and 'deployer' in session %}
-    <h1>Apps:</h1>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#">Deploy for America</a>
+        <ul class="nav">
+          <li>
+            {% if 'github_token' in session and 'deployer' in session %}
+            <a href="{{ url_for('logout') }}">Log Out</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">Log In</a>
+            {% endif %}
+          </li>
+        </ul>
 
-    <ul>
-    {% for key, dep in deployables.iteritems() %}
-    <li>
-      {{ dep.name }}
-      {% for t in  dep.targets %}
-          <div class="btn deploy" data-deployable="{{ key }}" data-target="{{ t.name }}">{{ t.name }}</div>
+
+      </div>
+    </div>
+    <div class="content">
+      {% for message in get_flashed_messages() %}
+      <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        
+        {{ message }}<br>
+        
+      </div>
       {% endfor %}
-      <div class="result"></div>
-      <dl class="list commit" data-deployable="{{ key }}"></dl>
+      {% if 'github_token' in session and 'deployer' in session %}
+      <h1>Apps:</h1>
 
-    </li>
+      <table class="table">
+        {% for key, dep in deployables.iteritems() %}
+        <tr>
+          <td>
+            {{ dep.name }}
+          </td>
+          <td>
+            <div class="btn-group">
+              {% for t in  dep.targets %}
+              <div class="btn deploy" data-deployable="{{ key }}" data-target="{{ t.name }}">{{ t.name }}</div>
+              {% endfor %}
+            </div>
+          </td>
+          <td>      <dl class="list commit" data-deployable="{{ key }}"></dl></td>
+          <td>
+            <div class="result"></div>
+          </td>
+        </tr>
 
-    {% endfor %}
-    </ul>
 
-    <a href="{{ url_for('logout') }}">Log Out</a>
-    {% else %}
-    <a href="{{ url_for('login') }}">Log In</a>
-    {% endif %}
+        {% endfor %}
+      </table>
+      {% endif %}
+    </div>
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
     <script src="/static/js/bootstrap.js"></script>
