@@ -2,4 +2,3 @@ venv-deployit
 .pyc
 repos
 .env
-Procfile
