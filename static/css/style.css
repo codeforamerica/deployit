@@ -7,4 +7,8 @@ dt{
 .content{ 
   width:800px;
   margin:auto;
+  padding-top:30px;
+}
+.applications{ 
+  margin-top:50px;
 }

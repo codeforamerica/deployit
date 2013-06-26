@@ -32,13 +32,20 @@
       </div>
       {% endfor %}
       {% if 'github_token' in session and 'deployer' in session %}
-      <h1>Apps:</h1>
 
-      <table class="table">
+      <p>From here you can deploy a CfA repo to it staging and production site, with one click!</p>
+      
+
+      <table class="table applications">
+        <tr>
+          <th>Application</th>
+          <th>Deploy to</th>
+          <th>Status</th>
+        </tr>
         {% for key, dep in deployables.iteritems() %}
         <tr>
           <td>
-            {{ dep.name }}
+            <a href="{{ dep.githubUrl }}" target="_blank" >{{ dep.name }}</a>
           </td>
           <td>
             <div class="btn-group">
@@ -49,8 +56,11 @@
           </td>
           <td>      <dl class="list commit" data-deployable="{{ key }}"></dl></td>
           <td>
-            <div class="result"></div>
+            
           </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="results" data-deployable="{{ key }}"></td>
         </tr>
 
 

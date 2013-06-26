@@ -3,12 +3,29 @@ $(function(){
 
   $(".btn.deploy").click(function(){
     var $button = $(this);
-    var data = {deployable:$(this).attr("data-deployable"),
-                target:$(this).attr("data-target")};
 
-    $button.siblings("div.result").html("deploying...");
+    var deployable = $(this).attr("data-deployable");
 
-    $.ajax("/deploy", {method:"POST", 
+    $("[data-deployable='"+deployable+"'].results").html("deploying...");
+
+    var params = "deployable="+encodeURIComponent(deployable)+
+      "&target="+encodeURIComponent($(this).attr("data-target"));
+
+    var oReq = new XMLHttpRequest();
+    oReq.onreadystatechange = function()
+    {
+      if (this.readyState > 2 && this.status == 200)
+      {
+        var response = this.responseText;
+        console.log(response);
+        $("[data-deployable='"+deployable+"'].results").html(response.replace(/\n/g, "<br />"));
+      }
+    }
+    oReq.open("post", "/deploy", true);
+    oReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    oReq.send(params);
+
+/*    $.ajax("/deploy", {method:"POST", 
                        data:data,
                        success:function(res){
                          
@@ -16,7 +33,7 @@ $(function(){
                          $button.siblings("div.result").html(res);
 
                        }});
-                       
+  */                     
 
   });
 
