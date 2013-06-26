@@ -1,6 +1,7 @@
 import subprocess
 import os
-
+import time
+from git import *
 from deploy_history import deploy_details, deployment
 
 
@@ -13,7 +14,7 @@ def run_deploy(config, target_name):
     if("gitDestRemote" in target):
         run_git_deploy(config, target)
     else:
-        run_generice_deploy(config, target)
+        run_generic_deploy(config, target)
 
 def get_target(config, target):
 
@@ -33,6 +34,13 @@ def run_git_deploy(config, target):
     run_cmd(["git", "pull", config['gitSourceRemote'], "master"], path="./repos/"+config["key"])
     #push it (right now just back where it came from)
     run_cmd(["git", "push", "origin", "master"], path="./repos/"+config["key"])
+
+    #TODO: Get timestamp from run_cmd output?
+    repo = Repo("./repos/"+config['key'])
+    headcommit = repo.commit('master')
+    config['sha'] = headcommit.hexsha
+    config['time'] = time.time()
+    deployment(config)
 
 
 

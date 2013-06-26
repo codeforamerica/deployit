@@ -1,4 +1,5 @@
 import json
+from deploy_config import load_config
 
 def last_deploy(*deploy_names):
 
@@ -17,8 +18,13 @@ def last_deploy(*deploy_names):
 
 def deployment(deployment=None):
 
-    with open("deployments.log.json", "a") as f:
-        f.write(json.dumps({"name":"deploy a", "timestamp": 1234}) + "\n")
+    hist = load_config('deployments.log.json')
+    hist['deploys'].append(json.dumps({"name":deployment['name'], 
+            "timestamp": deployment['time'], 
+            "sha": deployment['sha']}))
+
+    f = open('deployments.log.json', 'w')
+    f.write(json.dumps(hist))
 
 
 def deploy_details(deployment, line):
@@ -26,3 +32,4 @@ def deploy_details(deployment, line):
     #log stdin/stderr to tmp dir, for debugging deploys.
 
     pass
+

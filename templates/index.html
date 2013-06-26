@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
-  <p class="mesages">
+  <p class="messages">
     {% for message in get_flashed_messages() %}
-    {{ message }}<br>
+      {{ message }}
     {% endfor %}
   </p>
     {% if 'github_token' in session and 'deployer' in session %}
@@ -18,9 +18,11 @@
     <li>
       {{ dep.name }}
       {% for t in  dep.targets %}
-      <div class="btn deploy" data-deployable="{{ key }}" data-target="{{ t.name }}">{{ t.name }}</div>
+          <div class="btn deploy" data-deployable="{{ key }}" data-target="{{ t.name }}">{{ t.name }}</div>
       {% endfor %}
       <div class="result"></div>
+      <dl class="list commit" data-deployable="{{ key }}"></dl>
+
     </li>
 
     {% endfor %}

@@ -6,10 +6,10 @@ from flask import session
 from flask import url_for
 from flask import redirect
 from flask import flash
-from flask import g
 from flask_oauthlib.client import OAuth
 from deploy_config import load_config
 from deploy import run_deploy
+import json
 
 
 app = Flask(__name__)
@@ -57,21 +57,27 @@ def oauthorized(resp):
 	cfa_id = None
 	team_id = None
 	for org in orgs.data:
-		if org['login'] == 'codeforamerica':
+		if org['login'] == config['auth_org']:
 			cfa_id = org['id']
 			break
 
 	if not cfa_id:
-		flash("You must be a CFA Org member.")
+		flash("You must be a %s Org member." % config['auth_org'])
 		return redirect(url_for('index'))
 
-	teams = github.get('/orgs/%s/teams' % 'codeforamerica')
+	teams = github.get('/orgs/%s/teams' % config['auth_org'])
+	if teams.status != 200:
+		flash("Could not fetch your org's teams.")
 	for team in teams.data:
-		if team['name'] == 'deployers':
+		if team['name'] == config['dep_team']:
 			team_id = team['id']
 			break
 
 	deployers = github.get('/teams/%s/members' % team_id)
+	if deployers.status != 200:
+		flash("Could not find the configured deployment team")
+		return redirect(url_for('index'))
+
 	for deployer in deployers.data:
 		if deployer['id'] == user['id']:
 			#TODO: Move deployer out of session into g
@@ -92,11 +98,29 @@ def logout():
 	session.pop('deployer', None)
 	return redirect(url_for('index'))
 
-@app.route("/currentCommits")
+@app.route("/currentCommits", methods=['GET'])
 def github_commits():
-
     # fetch most recent commit for a project on github.
-    return ""
+	# change this to correct repo
+	gh_commits = github.get('repos/%s/%s/commits' % (config['auth_org'],
+		request.form['deployable']))
+
+	commits = []
+	for commit in gh_commits.data:
+		commits.append({'author': commit['commit']['author']['name'],
+			'message': commit['commit']['message'], 'sha': commit['sha'],
+			'date': commit['commit']['author']['date']})
+
+	deploys = load_config('deployments.log.json')
+
+	last_dep = deploys['deploys'][len(deploys) - 1]
+
+	for i in range(len(commits)):
+		if commits[i]['sha'] == last_dep['sha']:
+			commits = commits[:i]
+			break
+
+	return json.dumps(commits)
 
 
 @app.route("/deploy", methods=['POST'])
@@ -108,8 +132,6 @@ def deploy():
     deployable['key'] = request.form['deployable']
 
     run_deploy(deployable, request.form['target'])
-
-
 
 
     return "DONE"

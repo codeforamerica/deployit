@@ -1,4 +1,6 @@
 {
+  "auth_org": "codeforamerica",
+  "dep_team": "deployers",
   "deployables":{
     "cfa.org":{"name":"CFA.org website",
                "description":"This deploys the wordpress template for codeforamerica.org",
