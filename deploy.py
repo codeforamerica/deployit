@@ -1,12 +1,8 @@
 import subprocess
 import os
 import time
-<<<<<<< HEAD
 from git import *
-=======
-import itertools
 
->>>>>>> get the deployment feedback displayed back to the client, so it can be styled.
 from deploy_history import deploy_details, deployment
 
 
@@ -19,11 +15,7 @@ def run_deploy(config, target_name):
     if("gitDestRemote" in target):
         return run_git_deploy(config, target)
     else:
-<<<<<<< HEAD
-        run_generic_deploy(config, target)
-=======
         return run_generice_deploy(config, target)
->>>>>>> get the deployment feedback displayed back to the client, so it can be styled.
 
 def get_target(config, target):
 
@@ -48,19 +40,17 @@ def run_git_deploy(config, target):
     for l in run_cmd(["git", "pull", config['gitSourceRemote'], "master"], path="./repos/"+config["key"]):
         yield l
 
-<<<<<<< HEAD
     #TODO: Get timestamp from run_cmd output?
     repo = Repo("./repos/"+config['key'])
     headcommit = repo.commit('master')
     config['sha'] = headcommit.hexsha
     config['time'] = time.time()
-    deployment(config)
+    deployment(config)  # todo only do this on a successful deploy
 
-=======
     # push it (right now just back where it came from)
     for l in run_cmd(["git", "push", target["gitDestRemote"], "master"], path="./repos/"+config["key"]):
         yield l
->>>>>>> get the deployment feedback displayed back to the client, so it can be styled.
+
 
 
 def run_generic_deploy(config):

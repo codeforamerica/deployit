@@ -90,6 +90,15 @@ def oauthorized(resp):
         return redirect(url_for('index'))
 
 
+@app.route("/")
+def index():
+    return render_template('index.html', deployables=config['deployables'])
+
+@app.route("/logout")
+def logout():
+    session.pop('github_token', None)
+    session.pop('deployer', None)
+    return redirect(url_for('index'))
 
 @app.route("/currentCommits", methods=['GET'])
 def github_commits():
@@ -127,6 +136,9 @@ def deploy():
 
     return Response(run_deploy(deployable, request.form['target']), mimetype='text/plain')
 
+@github.tokengetter
+def get_github_token(token=None):
+    return session.get('github_token')
 
 if __name__ == "__main__":
     app.run()
