@@ -25,16 +25,6 @@ $(function(){
     oReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     oReq.send(params);
 
-/*    $.ajax("/deploy", {method:"POST", 
-                       data:data,
-                       success:function(res){
-                         
-                         console.log(res);
-                         $button.siblings("div.result").html(res);
-
-                       }});
-  */                     
-
   });
 
 

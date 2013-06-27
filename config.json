@@ -4,12 +4,12 @@
   "deployables":{
     "cfa.org":{"name":"CFA.org website",
                "description":"This deploys the wordpress template for codeforamerica.org",
-               "gitSourceRemote":"git@github.com:codeforamerica/councilmatic.git",
-               "githubUrl":"https://github.com/codeforamerica/dev",
+               "gitSourceRemote":"git@github.com:codeforamerica/cfawp2012.git",
+               "githubUrl":"https://github.com/codeforamerica/cfawp2012",
                "targets":[
                  {"name":"Stage",
-                  "url":"http://stage.codeforamerica.org",
-                  "gitDestRemote":"git@heroku.com:testdevdeploy.git"
+                  "url":"http://staging.codeforamerica.org",
+                  "gitDestRemote":"git@origin.staging.codeforamerica.org:/opt/git/cfawp2012.git"
                  },
                  {"name": "Production",
                   "url":"http://codeforamerica.org",

@@ -50,13 +50,12 @@
           <td>
             <div class="btn-group">
               {% for t in  dep.targets %}
-              <div class="btn deploy" data-deployable="{{ key }}" data-target="{{ t.name }}">{{ t.name }}</div>
+              <div class="btn deploy" data-deployable="{{ key }}" data-target="{{ t.name }}" title="{{ t.gitDestRemote }}">{{ t.name }}</div>
               {% endfor %}
             </div>
           </td>
-          <td>      <dl class="list commit" data-deployable="{{ key }}"></dl></td>
           <td>
-            
+            <dl class="list commit" data-deployable="{{ key }}"></dl>            
           </td>
         </tr>
         <tr>
